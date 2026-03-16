@@ -1,0 +1,39 @@
+classDiagram
+    class Pet {
+        +name: str
+        +species: str
+        +special_needs: str
+        +preferences: str
+        +activities: List~Activity~
+        +add_activity(activity: Activity): void
+        +get_daily_activities(): List~Activity~
+    }
+
+    class Activity {
+        +activity_type: str
+        +duration_minutes: int
+        +priority: str
+        +earliest_start_time: str
+        +latest_start_time: str
+        +is_within_window(start_time: str): bool
+    }
+
+    class Scheduler {
+        +pets: List~Pet~
+        +add_pet(pet: Pet): void
+        +generate_daily_schedule(): Schedule
+        +resolve_conflicts(schedule: Schedule): Schedule
+    }
+
+    class Schedule {
+        +entries: List~tuple~
+        +add_entry(activity: Activity, start_time: str): void
+        +has_conflicts(): bool
+        +to_ordered_list(): List~tuple~
+    }
+
+    Pet "1" o-- "0..*" Activity : has
+    Scheduler "1" --> "0..*" Pet : schedules_for
+    Scheduler "1" --> "1" Schedule : produces
+    Schedule "1" o-- "0..*" Activity : contains
+

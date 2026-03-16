@@ -2,15 +2,25 @@
 
 ## 1. System Design
 
-**a. Initial design**
+**a. Core user actions (natural language)**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+- A user can add and manage their pet profile, including basic details and care preferences.
+- A user can create and update care tasks (like feeding, walks, medication, and play) with duration and priority.
+- A user can generate and review today's care plan so they know what to do and when.
 
-**b. Design changes**
+**b. Initial design**
 
-- Did your design change during implementation?
-- If yes, describe at least one change and why you made it.
+-   **`Pet`**: This class was designed to hold all information about a pet, such as its name, species, and any special needs or preferences.
+-   **`Activity`**: This class represented a task that needed to be scheduled, like 'walk', 'feed', or 'play'. Each activity had a `duration` and a `priority` level (e.g., high, medium, low).
+-   **`Scheduler`**: This was the main engine of the system. Its responsibility was to take a list of pets and their required activities for a day and generate a conflict-free schedule. The initial plan was for it to simply order activities by priority.
+-   **`Schedule`**: A simple data structure class, intended to hold the final output: an ordered list of `Activity` objects, each assigned a specific start time.
+
+**c. Design changes**
+Yes, my design evolved significantly once I started implementing the scheduling logic.
+
+One key change was the enhancement of the `Activity` class. Initially, I only had a `priority` attribute to guide the scheduler. I quickly realized this was insufficient. For example, giving a dog its medication is a high-priority task, but it also needs to happen at a very specific time. A 'play' session might be lower priority but is flexible about when it happens.
+
+To address this, I added the concept of a time window to the `Activity` class by including `earliest_start_time` and `latest_start_time` attributes. This allowed me to represent both fixed appointments and flexible tasks within the same structure. This change was crucial because it made the `Scheduler`'s job more explicit. Instead of just relying on a simple priority score, the scheduler could now operate on concrete time constraints, making the scheduling algorithm more powerful and the resulting schedules far more practical and realistic. It separated the definition of an activity's constraints from the scheduling algorithm itself.
 
 ---
 
