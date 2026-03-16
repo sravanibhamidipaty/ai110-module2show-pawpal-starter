@@ -203,3 +203,27 @@ class Scheduler:
         if parsed_time is None:
             return 23 * 60 + 59
         return parsed_time.hour * 60 + parsed_time.minute
+
+    def detect_conflicts(self, tasks: list[Task]) -> list[tuple[Task, Task]]:
+        """Return task pairs that share the same valid HH:MM time."""
+        tasks_by_time: dict[str, list[Task]] = {}
+        for task in tasks:
+            if self._parse_time(task.time_of_day) is None:
+                continue
+            tasks_by_time.setdefault(task.time_of_day, []).append(task)
+
+        conflicts: list[tuple[Task, Task]] = []
+        for grouped_tasks in tasks_by_time.values():
+            if len(grouped_tasks) < 2:
+                continue
+
+            ordered = self.sort_by_time(grouped_tasks)
+            for first_index in range(len(ordered)):
+                for second_index in range(first_index + 1, len(ordered)):
+                    conflicts.append((ordered[first_index], ordered[second_index]))
+
+        return conflicts
+
+    def find_conflicts_for_owner(self, owner: Owner, include_completed: bool = False) -> list[tuple[Task, Task]]:
+        tasks = self.retrieve_all_tasks(owner, include_completed=include_completed)
+        return self.detect_conflicts(tasks)
