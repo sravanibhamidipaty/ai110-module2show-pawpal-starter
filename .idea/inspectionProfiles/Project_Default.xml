@@ -1,0 +1,46 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="aiosqlite" />
+          <option value="annotated-types" />
+          <option value="anyio" />
+          <option value="asyncpg" />
+          <option value="certifi" />
+          <option value="cffi" />
+          <option value="charset-normalizer" />
+          <option value="click" />
+          <option value="cryptography" />
+          <option value="ecdsa" />
+          <option value="fastapi" />
+          <option value="h11" />
+          <option value="idna" />
+          <option value="iso8601" />
+          <option value="numpy" />
+          <option value="pyasn1" />
+          <option value="pycparser" />
+          <option value="pydantic" />
+          <option value="pydantic-core" />
+          <option value="pypika-tortoise" />
+          <option value="python-jose" />
+          <option value="python-multipart" />
+          <option value="pytz" />
+          <option value="regex" />
+          <option value="requests" />
+          <option value="rsa" />
+          <option value="six" />
+          <option value="sniffio" />
+          <option value="starlette" />
+          <option value="tiktoken" />
+          <option value="tortoise-orm" />
+          <option value="typing-extensions" />
+          <option value="typing-inspection" />
+          <option value="urllib3" />
+          <option value="uvicorn" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
